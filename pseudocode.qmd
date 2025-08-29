@@ -1,0 +1,6 @@
+---
+author: Your Name
+title: Screencast Pseudocode
+output: html
+---
+

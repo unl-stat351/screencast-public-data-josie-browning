@@ -1,0 +1,15 @@
+---
+title: Screencast Checklist
+---
+
+
+- Screencast uploaded to YouTube/YuJa
+    - If on YouTube, your screencast should be set so that anyone with the link can view the video.
+
+- Captions for the video screened for accuracy
+
+- Approximate time index provided for each of the 4 techniques you're demonstrating ([examples](https://www.rscreencasts.com/)) provided 
+    - in the README of your github repository 
+    - in the description of your video (if on YouTube)
+
+- Commented code for your screencast uploaded to the github repository
