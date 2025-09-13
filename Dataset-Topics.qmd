@@ -1,21 +1,21 @@
 ---
-author: Your Name
+author: Josephine Browning
 title: Project Dataset and Topics
 output: html
 ---
 
-[Link to dataset]()
+[Link to dataset](https://stardewvalleywiki.com/Stardew_Valley_Wiki)
 
 Things you plan to investigate using this dataset:
 
-- Thing 1
-- Thing 2
-- Thing 3
+- What season's crops yeild the highest average health value?
+- What fish is the hardest to catch in terms of rarity?
+- What are all the monsters that could be found on level 20 of the Mines?
 
 Stat 351 topics you plan to cover during the analysis:
 
-1. Topic 1
-2. Topic 2
-3. Topic 3
-4. Topic 4
+1. Scrapping data from the website and formatting it into a table
+2. Data cleaning and using tidyverse
+3. Visualization/graphics of data findings 
+4. Use APIs in some capacity (I don't know what they are yet)
 
