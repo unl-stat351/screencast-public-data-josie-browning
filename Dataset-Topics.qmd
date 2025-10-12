@@ -8,7 +8,7 @@ output: html
 
 Things you plan to investigate using this dataset:
 
-- What season's crops yeild the highest average health value?
+- What season's crops yield the highest average health value?
 - What fish is the hardest to catch in terms of rarity?
 - What are all the monsters that could be found on level 20 of the Mines?
 
@@ -17,5 +17,5 @@ Stat 351 topics you plan to cover during the analysis:
 1. Scrapping data from the website and formatting it into a table
 2. Data cleaning and using tidyverse
 3. Visualization/graphics of data findings 
-4. Use APIs in some capacity (I don't know what they are yet)
+4. Use list-processing methods to extract information 
 
