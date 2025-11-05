@@ -18,4 +18,5 @@ Stat 351 topics you plan to cover during the analysis:
 2. Data cleaning and using tidyverse
 3. Visualization/graphics of data findings 
 4. Use list-processing methods to extract information 
+5. Shiny app incorporation
 

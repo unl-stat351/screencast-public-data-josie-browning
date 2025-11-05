@@ -4,37 +4,52 @@ title: Screencast Pseudocode
 output: html
 ---
 
-1.  What season's crops yield the highest average health value?
+1.  **What season's crops yield the highest average health value?**
 
 In order to measure health value, I will be looking for the observations on Energy/Health, which are two separate stats. I will rank each crop on these two stats visually and examine the relationship between the two variables. There are also 4 variations of each crop: base, silver quality, gold quality, iridium quality, which increase the Energy/Health Stat. I will be treating these as separate observations for tidy data.
 
-After inspecting the wiki, I believe the data is in a nested structure as follows: home page -> crops -> [season] crops -> [title of crop] -> Energy/Health -> nested list of Energy/Health
-
-Steps: 
-  1. Scrap the html file into a list with correct readable information (rvest: hmtl_element, html_table)
-  2. Break the list out into a dataframe with listed columns
-  3. Transform the dataframe into tidy data (tidyr)
-  4. Identify useful information and ensure it is in a workable form 
-  5. Visualize the energy and health variables (ggplot2)
-
-
-2.  What fish is the hardest to catch in terms of rarity?
-
-I will need to create a statistic on how many days out of an average Stardew year a fish would be available. This will need to be based off of season, weather, and potentially special events. 
-
-Steps: 
-  1. Scrap a new page within the wiki to have the specific page of information I need
-  2. Identify where the useful information is -> variables Time, Season, Weather
-  3. Reuse tidy data formatting since the data should be similar 
-  4. Calculate new variables that can be compared (number of hours a day available, number of days in the month available)
-  5. Plot information to identify rare fish
-
-3.  Which monster that could be found on level 20 of the Mines is hardest to kill?
-
-For this I'll be using the variable of "Base HP" which should be found in a description/stat section of each monster. 
+After inspecting the wiki, I believe the data is in a nested structure as follows: home page -\> crops -\> \[season\] crops -\> \[title of crop\] -\> Energy/Health -\> nested list of Energy/Health
 
 Steps:
-  1. Scrap page related to monsters: monster page -> Monsters List -> The Mines -> Floors 1-29, this should result in a list of 5 monsters
-  2. Format tidy data over the 5 monsters
-  3. Identify the "HP" statistics for each monster
-  4. Plot the HP variable to visually inspect the difficulty of fighting each one
+
+1.  Scrap the html file into a list with correct readable information (rvest: hmtl_element, html_table)
+
+2.  Break the list out into a dataframe with listed columns
+
+3.  Transform the dataframe into tidy data (tidyr)
+
+    1.  Write function to cycle through list and put it all in a tidy dataframe
+
+4.  Identify useful information and ensure it is in a workable form
+
+5.  Visualize the energy and health variables (ggplot2)
+
+6.  Incorporate shiny app
+
+2.  **What fish is the hardest to catch in terms of rarity?**
+
+I will need to create a statistic on how many days out of an average Stardew year a fish would be available. This will need to be based off of season, weather, and potentially special events.
+
+Steps:
+
+1.  Scrap a new page within the wiki to have the specific page of information I need
+
+2.  Identify where the useful information is -\> variables Time, Season, Weather
+
+3.  Reuse tidy data formatting since the data should be similar
+
+4.  Calculate new variables that can be compared (number of hours a day available, number of days in the month available)
+
+5.  Plot information to identify rare fish
+
+3.  **Which monster that could be found on level 20 of the Mines is hardest to kill?**
+
+For this I'll be using the variable of "Base HP" which should be found in a description/stat section of each monster.
+
+Steps: 1. Scrap page related to monsters: monster page -\> Monsters List -\> The Mines -\> Floors 1-29, this should result in a list of 5 monsters 2. Format tidy data over the 5 monsters 3. Identify the "HP" statistics for each monster 4. Plot the HP variable to visually inspect the difficulty of fighting each one
+
+Shiny Ideas:
+
+1.  Have an interactive graph that shows the health and energy for all crops, and have settings that can show only health, only energy, each season, specialty crops, etc.
+
+2.  Similar idea for fish data (choose one or the other depending on how data is structured and easy to work with)
