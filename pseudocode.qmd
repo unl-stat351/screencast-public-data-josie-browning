@@ -4,7 +4,7 @@ title: Screencast Pseudocode
 output: html
 ---
 
-1.  **What season's crops yield the highest average health value?**
+1.  **What season's crops yield the highest average health and energy values?**
 
 In order to measure health value, I will be looking for the observations on Energy/Health, which are two separate stats. I will rank each crop on these two stats visually and examine the relationship between the two variables. There are also 4 variations of each crop: base, silver quality, gold quality, iridium quality, which increase the Energy/Health Stat. I will be treating these as separate observations for tidy data.
 
@@ -46,7 +46,15 @@ Steps:
 
 For this I'll be using the variable of "Base HP" which should be found in a description/stat section of each monster.
 
-Steps: 1. Scrap page related to monsters: monster page -\> Monsters List -\> The Mines -\> Floors 1-29, this should result in a list of 5 monsters 2. Format tidy data over the 5 monsters 3. Identify the "HP" statistics for each monster 4. Plot the HP variable to visually inspect the difficulty of fighting each one
+Steps:
+
+1.  Scrap page related to monsters: monster page -\> Monsters List -\> The Mines -\> Floors 1-29, this should result in a list of 5 monsters
+
+2.  Format tidy data over the 5 monsters
+
+3.  Identify the "HP" statistics for each monster
+
+4.  Plot the HP variable to visually inspect the difficulty of fighting each one
 
 Shiny Ideas:
 
