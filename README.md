@@ -1,15 +1,17 @@
-# Public Data Screencast 
+# Public Data Screencast
 
-(this title should be replaced with your own title)
+Stardew Valley Screencast Project
 
 Link to video:
 
-The code written during this screencast is available [here](code-file).
+The code written during this screencast is available in the screencast.qmd or here in Github
 
 ## Index of Techniques Used
 
-| Time | Technique |
-| --- | --- |
-|     |     |
-
-
+| Time        | Technique                   |
+|-------------|-----------------------------|
+| 2:08, 21:20 | scrapping                   |
+| 6:35        | list processing             |
+| 3:30, 24:10 | data cleaning and tidyverse |
+| 12:00       | ggplot visuals              |
+|             | shiny app                   |

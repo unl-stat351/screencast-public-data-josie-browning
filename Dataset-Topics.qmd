@@ -8,15 +8,14 @@ output: html
 
 Things you plan to investigate using this dataset:
 
-- What season's crops yield the highest average health and energy values?
-- What fish is the hardest to catch in terms of rarity?
-- Which monsters that could be found on level 20 of the Mines is hardest to kill?
+-   What season's crops yield the highest average health and energy values?
+-   What fish is the hardest to catch in terms of rarity?
+-   Which monsters that could be found on level 20 of the Mines is hardest to kill?
 
 Stat 351 topics you plan to cover during the analysis:
 
-1. Scrapping data from the website and formatting it into a table
-2. Data cleaning and using tidyverse
-3. Visualization/graphics of data findings 
-4. Use list-processing methods to extract information 
-5. Shiny app incorporation
-
+1.  Scrapping data from the website and formatting it into a table
+2.  List processing
+3.  Data cleaning and using tidyverse
+4.  Visualization/graphics of data findings
+5.  Shiny app incorporation

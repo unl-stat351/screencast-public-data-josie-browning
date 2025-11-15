@@ -1,0 +1,187 @@
+---
+title: "screencast"
+format: html
+editor: visual
+---
+
+Problem 1
+
+```{r}
+library(rvest)
+library(purrr)
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+
+url <- ("https://stardewvalleywiki.com")
+
+crops_tables <- read_html("https://stardewvalleywiki.com/Crops") %>%
+  html_elements(".wikitable") %>%
+  html_table()
+
+crop_name <- crops_tables[[51]] %>%
+  rename(Season = "Crops") %>%
+  separate_rows(Crops, sep = "•") %>%
+  mutate(Crops = trimws(Crops))
+
+qualities <- c("base", "silver", "gold", "iridium")
+
+test <- crops_tables[[3]] %>%
+  select(2:4, -3) %>%
+  slice(6:9) %>%
+  rename(energy = 1, health = 2) %>%
+  mutate(crops = "carrot",
+         quality = qualities)
+
+crops_tables <- read_html("https://stardewvalleywiki.com/Crops") %>%
+  html_elements(".wikitable")
+
+get_crops <- function(tables) {
+  
+  all_dfs <- data.frame()
+  for (i in 3:48) {
+
+    tryCatch({
+      table_node <- tables[[i]]
+      tr_nodes <- html_elements(table_node, "tr")
+
+      rows <- list()
+      
+      for (r in seq_along(tr_nodes)) {
+
+        cells <- html_text(html_elements(tr_nodes[[r]], "td"), trim = TRUE)
+        
+        if (length(cells) < 9) {
+          cells <- c(cells, rep(NA, 9 - length(cells)))
+        }
+    
+        rows[[r]] <- cells
+      }
+    
+      df <- do.call(rbind, rows) %>%
+        as.data.frame(stringsAsFactors = FALSE) %>%
+        select(V2, V4) %>%
+        slice(7:10) %>%
+        mutate(
+          Crops = as.character(crop_name[i - 2, 2]),
+          Quality = qualities) %>%
+        rename(Energy = `V2`, Health = `V4`)
+      
+      all_dfs <- bind_rows(all_dfs, df)
+      
+  }, error = function(e) {})
+  }
+  return(all_dfs)
+}
+
+crops_df <- get_crops(crops_tables)
+
+crops_df_clean <- crops_df %>%
+  left_join(crop_name, by = "Crops") %>%
+  filter(Quality == "iridium") %>%
+  mutate(Energy = as.numeric(Energy), 
+         Health = as.numeric(Health))
+
+crops_df_long <- crops_df_clean %>%
+  pivot_longer(cols = c("Energy", "Health"), names_to = "Type", values_to = "Value")
+
+ggplot(crops_df_clean, aes(x=Energy, y=Health, color = Season, label=Crops)) + 
+  geom_point(size = 3) + 
+  geom_text(vjust = -0.8) + 
+  labs(title = "Health vs Energy by Iridium Crops and Season")
+```
+
+Problem 2
+
+```{r}
+library(lubridate)
+
+fish_tables <- read_html("https://stardewvalleywiki.com/Fish") %>%
+  html_elements(".wikitable") %>%
+  html_table()
+
+fish <- fish_tables[[1]]
+
+fish_clean <- fish[c(2, 32, 33)] %>%
+  na.omit()
+
+names(fish_clean) <- c("name", "time", "season")
+
+#albacore, halibut
+
+fish_cleaner <- fish_clean %>%
+  mutate(time = gsub("Anytime", "6am - 2am", time),
+         time = gsub("Any time", "6am - 2am", time),
+         time = gsub("–", "-", time)) %>%
+  separate(time, into = c("start_time", "end_time"), sep = "-")
+
+fish_clean_times <- fish_cleaner %>%
+  mutate(start_time = as.numeric(format(parse_date_time(start_time, orders = "I!p"), "%H")),
+         end_time = as.numeric(format(parse_date_time(end_time, orders = "I!p"), "%H")))
+
+fish_clean_times[38, 3] <- 11
+fish_clean_times[41, 3] <- 11
+
+fish_clean_times <- fish_clean_times %>%
+  mutate(duration = ifelse(start_time > end_time, (end_time + 24) - start_time, end_time - start_time)) 
+
+fish_clean_season <- fish_clean_times %>%
+  mutate(season = gsub("\\([^)]*\\)", "", season),
+         season = gsub(" with Rain Totem", "", season),
+         num_seasons = case_when(
+           str_detect(season, "All Season") ~ 4,
+           TRUE ~ str_count(season, "\\bSpring|Summer|Fall|Winter\\b")),
+         yearly_hours = duration*num_seasons*28) %>%
+  filter(yearly_hours < 1000)
+
+ggplot(fish_clean_season, aes(x = name, y = yearly_hours, color = season)) + 
+  geom_point(size = 2) +
+  theme(axis.text.x = element_text(angle = 45)) + 
+  labs(title = "Fish Rarity by Hours Available per Year", x = "Fish Name", y = "Annual Hours")
+```
+
+Problem 3
+
+```{r}
+monster_tables <- read_html("https://stardewvalleywiki.com/Monsters") %>%
+  html_elements(".wikitable") %>%
+  html_table()
+
+monster <- monster_tables[[1]]
+list <- c("Bug", "Cave_Fly", "Duggy", "Grub", "Rock_Crab")
+
+pull_monster <- function(monster_list) {
+  
+  monster_list |> map_df(function(monster_name) {
+  
+  url <- paste0("https://stardewvalleywiki.com/", monster_name)
+  
+  tables <- read_html(url) %>%
+    html_table()
+  
+  monster_table <- tables[[1]] %>%
+    filter(X1 == "Base HP:") %>%
+    mutate(monster = monster_name)
+  
+  monster_table
+  
+  })
+}
+
+
+monster_df <- pull_monster(list)
+
+monster_df_clean <- monster_df %>%
+  rename("Base_HP" = X2) %>%
+  select(-X1) %>%
+  mutate(Base_HP = as.numeric(Base_HP))
+
+monster_df_clean |>
+  mutate(monster = reorder(monster, Base_HP)) |>
+ggplot( aes(x = monster, y = Base_HP)) +
+  geom_point(size = 3) + 
+  labs(title = "Base HP for Monster on Levels 1-29", x = "Base HP", y = "Monster Name")
+
+```

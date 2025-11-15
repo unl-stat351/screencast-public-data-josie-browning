@@ -4,7 +4,7 @@ title: Screencast Pseudocode
 output: html
 ---
 
-1.  **What season's crops yield the highest average health and energy values?**
+**What season's crops yield the highest average health and energy values?**
 
 In order to measure health value, I will be looking for the observations on Energy/Health, which are two separate stats. I will rank each crop on these two stats visually and examine the relationship between the two variables. There are also 4 variations of each crop: base, silver quality, gold quality, iridium quality, which increase the Energy/Health Stat. I will be treating these as separate observations for tidy data.
 
@@ -26,7 +26,7 @@ Steps:
 
 6.  Incorporate shiny app
 
-2.  **What fish is the hardest to catch in terms of rarity?**
+**What fish is the hardest to catch in terms of rarity?**
 
 I will need to create a statistic on how many days out of an average Stardew year a fish would be available. This will need to be based off of season, weather, and potentially special events.
 
@@ -36,13 +36,13 @@ Steps:
 
 2.  Identify where the useful information is -\> variables Time, Season, Weather
 
-3.  Reuse tidy data formatting since the data should be similar
+3.  Use functional programming to clean and tidy the data
 
 4.  Calculate new variables that can be compared (number of hours a day available, number of days in the month available)
 
 5.  Plot information to identify rare fish
 
-3.  **Which monster that could be found on level 20 of the Mines is hardest to kill?**
+**Which monster that could be found on level 20 of the Mines is hardest to kill?**
 
 For this I'll be using the variable of "Base HP" which should be found in a description/stat section of each monster.
 
